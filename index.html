@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defeat the Sea Monsters</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align:center;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 50px;
+        }
+        .game-container {
+            background-color: #34495e;
+            width: 320px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 816px rgba(0, 0, 0, 0.3);
+        }
+
+        #character {
+            font-size: 80px;
+            cursor:pointer;
+            user-select: none;
+            transition: transform 0.1s ease;
+            margin: 20px 0;
+            display: inline-block;
+        }
+        #character:active {
+            transform: scale(0.85);
+            margin: 10px 0;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h2>Yummy Sea Food!</h2>
+        <!--bad monsters-->
+        <div id="character">🦑</div>
+
+        <div class="stats">Monster HP: <span id="hp">30</span></div>
+        <div class="stats">Gold: <span id="gold">0</span></div>
+        <div class="stats">Sword Level: <span id="sword-level">1</span></div>
+        <br>
+        <button id="upgrade-btn">Upgrade Sword (Cost 5 Gold)</button>
+    </div>
+
+    <script>
+        // Game variables
+        let hp = 30;
+        let maxHp = 30;
+        let gold = 0;
+        let attackPower = 1;
+        let upgradeCost = 10;
+        let swordLevel = 1;
+
+        //HTML elements
+        const characterEl = document.getElementById('character');
+        const hpEl = document.getElementById('hp');
+        const goldEl = document.getElementById('gold');
+        const swordLevelEl = document.getElementById('sword-level');
+        const upgradeBtn = document.getElementById('upgrade-btn');
+
+        // Click to attack
+        characterEl.addEventListener('click', () => {
+            hp -=attackPower;
+            if (hp <= 0) {
+                gold += 5; // Reward
+                hp = maxHp; // Reset HP
+                
+                const monsters= ["🦑", "🦀", "🐙", "🦐", "🦞"];
+                const randomMonster = monsters[Math.floor(Math.random() * monsters.length)];
+                characterEl.textContent = randomMonster;
+            }
+
+            updateUI();
+        });
+
+        // Upgrade button
+        upgradeBtn.addEventListener('click', () => {
+            if (gold >= upgradeCost) {
+                gold -= upgradeCost;
+                attackPower +=1;
+                swordLevel += 1;
+                upgradeCost = Math.floor (upgradeCost * 1.5);
+                updateUI();
+            } else {
+                alert("Not enough gold to upgrade!");
+            }
+        });
+        // Update UI function
+        function updateUI() {
+            hpEl.textContent = hp;
+            goldEl.textContent = gold;
+            swordLevelEl.textContent = swordLevel;
+            upgradeBtn.textContent = `Upgrade Sword (Cost ${upgradeCost} Gold)`;
+        }
+    </script>
+</body>
+</html>
