@@ -1,0 +1,1 @@
+It's a really simple game. All you do is just tap on whatever sea creature emoji you get until their hp is to 0 then you do the same with the next one. Through this the more you defeat the more gold you get and then you can upgrade your sword with the bottom button and defeat them faster.  
